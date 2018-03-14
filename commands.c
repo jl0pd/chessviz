@@ -1,6 +1,9 @@
+#include <stdio.h>
+#include <ctype.h>
 #include "commands.h"
 
-void showboard(void){
+void showboard(void)
+{
     for (int i = 0; i < 9; i++)
         {
             for (int j = 0; j < 9; j++)
@@ -11,18 +14,26 @@ void showboard(void){
         }
 }
 
-int swap(char* from_to)
+void swap(char* from_to)
 {
-    char tmp = board->index[from_to[0]][from_to[1]];
-    board->index[from_to[0]][from_to[1]] = board->index[from_to[2]][from_to[3]];
-    board->index[from_to[2]][from_to[3]] = tmp;
+    char tmp = board[from_to[0]][from_to[1]];
+    board[from_to[0]][from_to[1]] = board[from_to[2]][from_to[3]];
+    board[from_to[2]][from_to[3]] = tmp;
+}
+
+int make_move(move_from_to)
+{
+    if (check_move_possible(move_from_to)){
+        return 0; //if nice
+    }
+    return -1; //if error
 }
 
 void get_move(void)
 {
     char move_from_to[4];
     for (int i = 0; i < 4; i++ )
-        move_from_to[i] = getc();
+        move_from_to[i] = getchar();
     convert(move_from_to);
     make_move(move_from_to);
 }
