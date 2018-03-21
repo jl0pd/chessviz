@@ -14,10 +14,41 @@ int make_move(void)
     }
 }
 
-int check_move_possible(int* move)
+int check_column(int *move, int can_back)
+{
+    if (!can_back){
+        if (tolower(board[move[0]][move[1]]) == board[move[0][move[1]]){ //проверка цвета
+
+        }
+    }
+}
+
+int check_move_possible(int *move)
 {
     int possible = -1;
-
+    switch(tolower(board[move[0]][move[1]])){
+    case 'r':
+        possible = check_rook(move);
+        break;
+    case 'n':
+        possible = check_knight(move);
+        break;
+    case 'b':
+        possible = check_bishop(move);
+        break;
+    case 'q':
+        possible = check_queen(move);
+        break;
+    case 'k':
+        possible = check_king(move);
+        break;
+    case 'p':
+        possible = check_pawn(move);
+        break;
+    default:
+        possible = 0;
+        break;
+    }
     return possible;
 }
 
@@ -32,42 +63,24 @@ int* get_move(void)
 int* convert(char *string)
 {
     static int res[4];
-    for (int i = 1; i <= 3; i+=2){
-        switch (tolower(string[i])){
-            case 'a':
-                res[i]=1;
-                break;
-            case 'b':
-                res[i]=2;
-                break;
-            case 'c':
-                res[i]=3;
-                break;
-            case 'd':
-                res[i]=4;
-                break;
-            case 'e':
-                res[i]=5;
-                break;
-            case 'f':
-                res[i]=6;
-                break;
-            case 'g':
-                res[i]=7;
-                break;
-            case 'h':
-                res[i]=8;
-                break;
-        }
-    }
+    
+    for (int i = 0; i <= 2; i+=2)
+        res[i] = string[i] - 'a';
+    
+    for (int i = 1; i <= 3; i+=2)
+        res[i] = string[i] - '1';
+
     return res;
 }
 
 void showboard(char *board)
 {
-    for (int i = 0; i < 9; i++)
+    char character = 'A';
+    printf("12345678");
+    for (int i = 0; i < 8; i++)
         {
-            for (int j = 0; j < 9; j++)
+            printf("%c", character++);
+            for (int j = 0; j < 8; j++)
             {
                 printf(" %c", board[i][j]);
             }
