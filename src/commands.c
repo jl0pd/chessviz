@@ -158,8 +158,8 @@ int* convert(char *string)
 void showboard(char board[8][8])
 {
     char character = 'H';
-    printf("   1 2 3 4 5 6 7 8\n");
-	printf("   _______________\n");
+
+	printf("\n");
     for (int i = 7; i >= 0; i--)
     {
         printf("%c|", character--);
@@ -169,6 +169,8 @@ void showboard(char board[8][8])
         }
         printf("\n");
     }
+	printf("   _______________\n");
+	printf("   1 2 3 4 5 6 7 8\n");
 
 }
 
