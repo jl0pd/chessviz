@@ -8,11 +8,12 @@ int make_move(char board[8][8])
     if (check_move_possible(move, board)){
         swap(move, board);
         return 1; //done
-    }else{
-        printf("Move not possible!");
-        return 0;
     }
+    printf("Move not possible!");
+    return 0;
+
 }
+
 int check_pawn(int* move, char board[8][8])
 {
     int can_back = 0;
@@ -79,7 +80,7 @@ int check_king(int* move, char board[8][8])
     return possible;
 }
 
-int check_column(int *move, int can_back, char board[8][8])
+int check_column(int* move, int can_back, char board[8][8])
 {
     int possible = 0;
     int i;
@@ -102,12 +103,20 @@ int check_column(int *move, int can_back, char board[8][8])
     }
     return possible;
 }
+int check_row(int* move, char board[8][8])
+{
+    return 0;
+}
+int check_diag(int* move, char board[8][8])
+{
+    return 0;
+}
 
-int check_move_possible(int *move, char board[8][8])
+int check_move_possible(int* move, char board[8][8])
 {
     int possible = -1;
     switch(tolower(board[move[0]][move[1]])){
-/*    
+    /*    
     case 'r':
         possible = check_rook(move);
         break;
@@ -126,7 +135,7 @@ int check_move_possible(int *move, char board[8][8])
     case 'p':
         possible = check_pawn(move);
         break;
-*/
+    */
     default:
         possible = 0;
         break;
@@ -142,7 +151,7 @@ int* get_move(void)
     return convert(move_from_to);
 }
 
-int* convert(char *string)
+int* convert(char* string)
 {
     static int res[4];
     

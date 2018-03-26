@@ -1,4 +1,4 @@
-all: prog
+all: prog clean
 
 prog: main.o commands.o
 	gcc bin/main.o bin/commands.o -o chess.test
@@ -7,4 +7,4 @@ main.o: src/main.c
 commands.o: src/commands.c
 	gcc -c src/commands.c -o bin/commands.o
 clean:
-	rm -rf *.o
+	rm -rf *.o bin/*.o
