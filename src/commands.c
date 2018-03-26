@@ -166,6 +166,8 @@ int* convert(char* string)
 
 void showboard(char board[8][8])
 {
+    printf("\033[2J"); //очистка консоли
+
     char character = 'H';
 
 	printf("\n");
