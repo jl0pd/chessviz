@@ -42,7 +42,7 @@ int check_rook(int* move, char *board[])
 {
     int possible = 0;
     int can_back = 1;
-    if (check_row(move, board) || check_column(move, board)){
+    if (check_row(move, board) || check_column(move, can_back, board)){
         possible = 1;
     }
     return possible;
@@ -154,17 +154,19 @@ int* convert(char *string)
 
 void showboard(char *board[])
 {
-    char character = 'A';
-    printf("  1 2 3 4 5 6 7 8");
-    for (int i = 0; i < 8; i++)
+    char character = 'H';
+    printf("   1 2 3 4 5 6 7 8\n");
+	printf("   _______________\n");
+    for (int i = 7; i >= 0; i--)
     {
-        printf("%c", character++);
+        printf("%c|", character--);
         for (int j = 0; j < 8; j++)
         {
             printf(" %c", board[i][j]);
         }
         printf("\n");
     }
+
 }
 
 void swap(int* from_to, char *board[])
