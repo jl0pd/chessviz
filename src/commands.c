@@ -18,20 +18,22 @@ int make_move(char board[8][8])
 int* get_move(void)
 {
     char move_from_to[4];
+    printf("Enter move: ");	
     for (int i = 0; i < 4; i++ )
         move_from_to[i] = getchar();
+    while(getchar() != '\n'); //очистка потока ввода
     return convert(move_from_to);
 }
 
 int* convert(char* string)
 {
-    static int res[4];
+    static int res[4];  
     
-    for (int i = 0; i <= 2; i+=2)
-        res[i] = string[i] - 'a';
+    res[0] = string[0] - 'a';
+    res[2] = string[2] - 'a';
     
-    for (int i = 1; i <= 3; i+=2)
-        res[i] = string[i] - '1';
+    res[1] = string[1] - '1';
+    res[3] = string[3] - '1';
 
     return res;
 }
@@ -57,15 +59,28 @@ void showboard(char board[8][8])
 
 }
 
-void swap(int* from_to, char board[8][8])
+void swap(int* move, char board[8][8])
 {
-    char tmp = board[from_to[0]][from_to[1]];
-    board[from_to[0]][from_to[1]] = board[from_to[2]][from_to[3]];
-    board[from_to[2]][from_to[3]] = tmp;
+    char tmp = board[move[1]][move[0]];
+    board[move[1]][move[0]] = board[move[3]][move[2]];
+    board[move[3]][move[2]] = tmp;
+    showboard(board);
 }
 
 void kill(int* move, char board[8][8])
 {
     board[move[2]][move[3]] = '.';
     swap(move, board);
+}
+
+int update_status(char board[8][8])
+{
+    for (int i = 0; i < 8; i++){
+        for (int j = 0; j <8; j++){
+            if (tolower(board[i][j]) == 'k'){
+                return 1;
+            } 
+        }
+    }
+    return 0;
 }
