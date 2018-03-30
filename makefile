@@ -1,4 +1,4 @@
-all: bin prog clean
+all: prog
 
 prog: main.o commands.o checks.o
 	gcc bin/main.o bin/commands.o bin/checks.o -o chess.test
@@ -9,6 +9,6 @@ commands.o: src/commands.c
 checks.o: src/checks.c
 	gcc -c src/checks.c -o bin/checks.o
 clean:
-	rm -rf bin/
+	rm -rf bin
 bin:
 	mkdir bin
