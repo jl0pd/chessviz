@@ -2,11 +2,11 @@ all: prog
 
 prog: main.o commands.o checks.o
 	gcc bin/main.o bin/commands.o bin/checks.o -o chess.test
-main.o: src/main.c
+main.o: src/main.c bin
 	gcc -c src/main.c -o bin/main.o
-commands.o: src/commands.c
+commands.o: src/commands.c bin
 	gcc -c src/commands.c -o bin/commands.o
-checks.o: src/checks.c
+checks.o: src/checks.c bin
 	gcc -c src/checks.c -o bin/checks.o
 clean:
 	rm -rf bin
