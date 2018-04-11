@@ -12,11 +12,10 @@ int make_move(char board[8][8])
     }
     if (check_move_possible(move, board)){
         kill(move, board);
-        return 1; //done
-    }
-    printf("Move not possible!");
+       return 1; //done
+   }
+   printf("Move not possible!");
     return 0;
-
 }
 
 int* get_move(void)
@@ -52,8 +51,8 @@ int* convert(char* string)
 
 void showboard(char board[8][8])
 {
-    printf("\033[2J"); //очистка консоли
-
+    printf("\033[1J"); //очистка консоли
+    printf("\033[J");
 	printf("\n");
     for (int i = 7; i >= 0; i--)
     {
@@ -66,7 +65,6 @@ void showboard(char board[8][8])
     }
 	printf("   _______________\n");
 	printf("   A B C D E F G H\n");
-
 }
 
 void swap(int* move, char board[8][8])
