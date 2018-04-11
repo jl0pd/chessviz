@@ -53,18 +53,18 @@ int check_queen(int* move, char board[8][8])
 int check_knight(int* move, char board[8][8])
 {
     int possible = 0;
-    if ((move, board)){
-        possible = 1;
-    }
+    // if ((move, board)){
+    //     possible = 1;
+    // }
     return possible;
 }
 
 int check_king(int* move, char board[8][8])
 {
     int possible = 0;
-    if ((move, board)){
-        possible = 1;
-    }
+    // if ((move, board)){
+    //     possible = 1;
+    // }
     return possible;
 }
 
