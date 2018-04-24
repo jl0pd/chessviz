@@ -1,5 +1,6 @@
 #binary files (executable)
-chess
+bin/chess
+bin/test
 
 # my file types
 *.swp
