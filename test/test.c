@@ -18,74 +18,51 @@ CTEST(move_suite, move_pawn) // Ход пешки
 	};
 	
 	//WHEN
-	int coordinates[4];
+	int check[4];
 	////////Проверка хода вперёд (b2b3)////////////
-	//b2b3
-	coordinates[0] = 1;
-	coordinates[1] = 1;
-	coordinates[2] = 1;
-	coordinates[3] = 2;
 
-	int check1 = check_move_possible(coordinates, board); 
+	int move1[4] = {1,1,1,2}; //b2b3
+
+	check[0] = check_move_possible(move1, board); 
 
 	///////Проверка хода по диагонали (c2d3)//////////
-	coordinates[0] = 2;
-	coordinates[1] = 1;     //c2d3
-	coordinates[2] = 3;
-	coordinates[3] = 2;
 	
-	int check3 = check_move_possible(coordinates, board);
+	int move2[4] = {2,1,3,2}; //c2d3
+
+	check[1] = check_move_possible(move2, board);
 
 	/////////Проверка хода назад (e2e4 -> e4e3)////////
-	coordinates[0] = 4;
-	coordinates[1] = 1;     //e2e4
-	coordinates[2] = 4;
-	coordinates[3] = 3;
 
-	kill(coordinates, board);
+	int move3[4] = {4,1,4,3}; //e2e4
 
-	coordinates[0] = 4;
-	coordinates[1] = 3;     //e4e3
-	coordinates[2] = 4;
-	coordinates[3] = 2;
+	kill(move3, board);
 
-	int check2 = check_move_possible(coordinates, board);
+	int move4[4] = {4,3,4,2}; //e4e3
+	
+	check[2] = check_move_possible(move4, board);
 	
 	//////проверка на возможность рубить пешкой////
-	coordinates[0] = 5;
-	coordinates[1] = 1;    //f2f4
-	coordinates[2] = 5;
-	coordinates[3] = 3;
 
-	kill (coordinates, board); 
+	int move5[4] = {5,1,5,3}; //f2f4
 
-	coordinates[0] = 6;
-	coordinates[1] = 6;    //g7g5
-	coordinates[2] = 6;
-	coordinates[3] = 4;
+	kill (move5, board); 
 
-	kill (coordinates, board); 
+	int move6[4] = {6,6,6,4}; //g7g5
 
-	coordinates[0] = 5;
-	coordinates[1] = 3;   //f4g5
-	coordinates[2] = 6;
-	coordinates[3] = 4;
+	kill (move6, board); 
 
-	int check4 = check_move_possible(coordinates, board); 
+	int move7[4] = {5,3,6,4}; //f4g5
 
-	//THEN
-	const int expected1 = 0;
-	const int expected2 = 1;
-	const int expected3 = 1;
-	const int expected4 = 0;
+	check[3] = check_move_possible(move7, board); 
+//////
+	int expected[] = {1, 0, 0, 1};
 
-	ASSERT_EQUAL(expected1, check1);
-	ASSERT_EQUAL(expected2, check2);
-	ASSERT_EQUAL(expected3, check3);
-	ASSERT_EQUAL(expected4, check4);
+	for(int i = 0; i < 4; i++){
+		ASSERT_EQUAL(expected[i], check[i]);
+	}
 }
 
-CTEST(move_suite, move_rook) // Ход Ладьи
+CTEST(move_suite,_rook) // Ход Ладьи
 {
 	//GIVEN
 	char board[8][8] = {
@@ -101,71 +78,56 @@ CTEST(move_suite, move_rook) // Ход Ладьи
 	
 	
 	//WHEN
-	int coordinates[4];
+	int check[10];
 
 	//Ход вперёд 
-	coordinates[0] = 7;
-	coordinates[1] = 0;     //h1h4
-	coordinates[2] = 7;
-	coordinates[3] = 3;
 	
-	int check1 = check_move_possible(coordinates, board); 
-	kill(coordinates, board); 	
+	int move1[] = {7,0,7,3}; //h1h4
+
+	check[0] = check_move_possible(move1, board); 
+	kill(move1, board); 	
 
 	//Ход назад
-	coordinates[0] = 7;
-	coordinates[1] = 3;     //h4h3
-	coordinates[2] = 7;
-	coordinates[3] = 2;
 
-	int check2 = check_move_possible(coordinates, board); 
-	kill(coordinates, board); 	
+	int move2[] = {7,3,7,2}; //h4h3
+
+	check[1] = check_move_possible(move2, board); 
+	kill(move2, board); 	
 
 	//Ход влево
-	coordinates[0] = 7;
-	coordinates[1] = 2;     //h3g3
-	coordinates[2] = 6;
-	coordinates[3] = 2;
 
-	int check3 = check_move_possible(coordinates, board); 
-	kill(coordinates, board); 	
+	int move3[] = {7,2,6,2}; //h3g3
+
+	check[2] = check_move_possible(move3, board); 
+	kill(move3, board); 	
 
 	//Атака
-	coordinates[0] = 6;
-	coordinates[1] = 2;     //g3f3
-	coordinates[2] = 5;
-	coordinates[3] = 2;
 
-	int check4 = check_move_possible(coordinates, board);
-	kill(coordinates, board);
+	int move4[] = {6,2,5,2}; //g3f3
 
-	//Ход по диагонале 
-	coordinates[0] = 5;
-	coordinates[1] = 2;     //f3e4
-	coordinates[2] = 4;
-	coordinates[3] = 3;
+	check[3] = check_move_possible(move4, board);
+	kill(move4, board);
 
-	int check5 = check_move_possible(coordinates, board); 
+  //Ход по диагонали
+	int move5[] = {5,2,4,3}; //f3e4
+
+	check[4] = check_move_possible(move5, board); 
 
 	//THEN
-	const int expected1 = 0;
-	const int expected2 = 0;
-	const int expected3 = 0;
-	const int expected4 = 0;
-	const int expected5 = 1;
 
-	ASSERT_EQUAL(expected1, check1);
-	ASSERT_EQUAL(expected2, check2);
-	ASSERT_EQUAL(expected3, check3);
-	ASSERT_EQUAL(expected4, check4);
-	ASSERT_EQUAL(expected5, check5);
+	int expected[] = {1,1,1,1,0};
+
+	for (int i = 0; i < 5; i++){
+		ASSERT_EQUAL(expected[i], check[i]);
+}
+
 }
 
 CTEST(move_suite, move_horse) // Ход коня
 {
 	//GIVEN
 	char board[8][8] = {
-		"rhbqkbhr",
+		"rnbqkbnr",
 		"pppppppp",
 		"........",
 		"........",
@@ -177,63 +139,43 @@ CTEST(move_suite, move_horse) // Ход коня
 	
 	//WHEN
 
-	int coordinates[4];
+	int check[5];
 
 	//ход Г(перевернутой)
-	coordinates[0] = 6;
-	coordinates[1] = 0;     //g1f3
-	coordinates[2] = 5;
-	coordinates[3] = 2;
 
-	int check1 = check_move_possible(coordinates, board); 
-	kill(coordinates, board);
+	int move1[] = {6,0,5,2}; //g1f3
+
+	check[0] = check_move_possible(move1, board); 
+	kill(move1, board);
 
 	//ход Г
-	coordinates[0] = 1;
-	coordinates[1] = 0;     //b1c3
-	coordinates[2] = 2;
-	coordinates[3] = 2;
 
-	int check2 = check_move_possible(coordinates, board); 
-	kill(coordinates, board);
+	int move2[] = {1,0,2,2}; //b1c3
+
+	check[1] = check_move_possible(move2, board); 
+	kill(move2, board);
 
 	//Атака
-	coordinates[0] = 5;
-	coordinates[1] = 2;     //f3e5
-	coordinates[2] = 4;
-	coordinates[3] = 4;
 
-	int check3 = check_move_possible(coordinates, board); 
-	kill(coordinates, board);
+	int move3[] = {5,2,4,4}; //f3e5
+	check[2] = check_move_possible(move3, board); 
+	kill(move3, board);
 
 	//ложный ход #1
-	coordinates[0] = 4;
-	coordinates[1] = 4;     //e5e6
-	coordinates[2] = 4;
-	coordinates[3] = 5;
 
-	int check4 = check_move_possible(coordinates, board); 
+	int move4[] = {4,4,4,5}; //e5e6
+	check[3] = check_move_possible(move4, board); 
 
 	//ложный ход #2
-	coordinates[0] = 4;
-	coordinates[1] = 4;     //e5e4
-	coordinates[2] = 4;
-	coordinates[3] = 3;
+	int move5[] = {4,4,4,3}; //e5e3
+	check[4] = check_move_possible(move5, board); 
 
-	int check5 = check_move_possible(coordinates, board); 
-	
 	//THEN
-	const int expected1 = 0;
-	const int expected2 = 0;
-	const int expected3 = 0;
-	const int expected4 = 1;
-	const int expected5 = 1;
 
-	ASSERT_EQUAL(expected1, check1);
-	ASSERT_EQUAL(expected2, check2);
-	ASSERT_EQUAL(expected3, check3);
-	ASSERT_EQUAL(expected4, check4);
-	ASSERT_EQUAL(expected5, check5);
+	int expected[] = {1,1,1,0,0};
+	for (int i = 0; i < 5; i++){
+		ASSERT_EQUAL(expected[i], check[i]);
+	}
 }
 
 CTEST(move_suite, move_bishop) // Ход Cлона
@@ -251,64 +193,43 @@ CTEST(move_suite, move_bishop) // Ход Cлона
 	};
 	
 	//WHEN
-	int coordinates[4];
+	int check[10];
 
 	//ход по диаголи  
-	coordinates[0] = 2;
-	coordinates[1] = 0;     //c1f4
-	coordinates[2] = 5;
-	coordinates[3] = 3;
 
-	int check1 = check_move_possible(coordinates, board); 
-	kill(coordinates, board);
+	int move1[] = {2,0,5,3}; //c1f4
+	check[0] = check_move_possible(move1, board); 
+	kill(move1, board);
 
 	//атака 
-	coordinates[0] = 5;
-	coordinates[1] = 3;     //f4g3
-	coordinates[2] = 6;
-	coordinates[3] = 2;
 
-	int check2 = check_move_possible(coordinates, board);
-	kill(coordinates, board); 
+	int move2[] = {5,3,6,2}; //f4g3
+	check[1] = check_move_possible(move2, board);
+	kill(move2, board); 
 
 	//атака
-	coordinates[0] = 6;
-	coordinates[1] = 2;     //g3e5
-	coordinates[2] = 4;
-	coordinates[3] = 4;
 
-	int check3 = check_move_possible(coordinates, board); 
-	kill(coordinates, board); 
+	int move3[] = {6,2,4,4}; //g3e5
+	check[2] = check_move_possible(move3, board); 
+	kill(move3, board); 
 
 	//ложный ход
-	coordinates[0] = 4;
-	coordinates[1] = 4;     //e5f5
-	coordinates[2] = 5;
-	coordinates[3] = 4;
 
-	int check4 = check_move_possible(coordinates, board); 
+	int move4[] = {4,4,5,4}; //e5f5
+	check[3] = check_move_possible(move4, board); 
 
 	//ложный ход
-	coordinates[0] = 4;
-	coordinates[1] = 4;     //e5c5
-	coordinates[2] = 2;
-	coordinates[3] = 4;
 
-	int check5 = check_move_possible(coordinates, board); 
+	int move5[] = {4,4,2,4}; //e5c5
+	check[4] = check_move_possible(move5, board); 
 	
 
 	//THEN
-	const int expected1 = 0;
-	const int expected2 = 0;
-	const int expected3 = 0;
-	const int expected4 = 1;
-	const int expected5 = 1;
 
-	ASSERT_EQUAL(expected1, check1);
-	ASSERT_EQUAL(expected2, check2);
-	ASSERT_EQUAL(expected3, check3);
-	ASSERT_EQUAL(expected4, check4);
-	ASSERT_EQUAL(expected5, check5);
+	int expected[] = {1,1,1,0,0};
+	for (int i = 0; i < 5; i++){
+		ASSERT_EQUAL(expected[i], check[i]);
+	}
 }
 
 CTEST(move_suite, move_king) // Ход короля
@@ -326,79 +247,51 @@ CTEST(move_suite, move_king) // Ход короля
 	};
 	
 	//WHEN
-	int coordinates[4];
-	//ход вперёд 
-	coordinates[0] = 4;
-	coordinates[1] = 0;     //e1e2
-	coordinates[2] = 4;
-	coordinates[3] = 1;
+	
+	int check[10];
+	
+	//ход вперёд
 
-	int check1 = check_move_possible(coordinates, board); 
-	kill(coordinates, board); 
-
-	//по диагонали
-	coordinates[0] = 4;
-	coordinates[1] = 1;     //e2f3
-	coordinates[2] = 5;
-	coordinates[3] = 2;
-
-	int check2 = check_move_possible(coordinates, board);  
-	kill(coordinates, board);
+	int move1[] = {4,0,4,1}; //e1e2
+	check[0] = check_move_possible(move1, board); 
+	kill(move1, board); 
 
 	//по диагонали
 
-	coordinates[0] = 5;
-	coordinates[1] = 2;     //f3e4
-	coordinates[2] = 4;
-	coordinates[3] = 3;
+	int move2[] = {4,1,5,2}; //e2f3
+	check[1] = check_move_possible(move2, board);  
+	kill(move2, board);
 
-	int check3 = check_move_possible(coordinates, board);
-	kill(coordinates, board); 
+	//по диагонали
+
+	int move3[] = {5,2,4,3}; //f3e4
+	check[2] = check_move_possible(move3, board);
+	kill(move3, board); 
 
 	//атака прямо
 
-	coordinates[0] = 4;
-	coordinates[1] = 3;     //e4e5
-	coordinates[2] = 4;
-	coordinates[3] = 4;
-
-	int check4 = check_move_possible(coordinates, board); 
-	kill(coordinates, board);
+	int move4[] = {4,3,4,4}; //e4e5
+	check[3] = check_move_possible(move4, board); 
+	kill(move4, board);
 
 	//атака влево
 
-	coordinates[0] = 4;
-	coordinates[1] = 4;     //e5d5
-	coordinates[2] = 3;
-	coordinates[3] = 4;
-
-	int check5 = check_move_possible(coordinates, board); 
-	kill(coordinates, board);
+	int move5[] = {4,4,3,4}; //e5d5
+	check[4] = check_move_possible(move5, board); 
+	kill(move5, board);
 
 	//ложный ход
 
-	coordinates[0] = 3;
-	coordinates[1] = 4;     //d5d3
-	coordinates[2] = 3;
-	coordinates[3] = 2;
-
-	int check6 = check_move_possible(coordinates, board); 
+	int move6[] = {3,4,3,2}; //d5d3
+	check[5] = check_move_possible(move6, board); 
 		
 	//THEN
-	const int expected1 = 0;
-	const int expected2 = 0;
-	const int expected3 = 0;
-	const int expected4 = 0;
-	const int expected5 = 0;
-	const int expected6 = 1;
-
-	ASSERT_EQUAL(expected1, check1);
-	ASSERT_EQUAL(expected2, check2);
-	ASSERT_EQUAL(expected3, check3);
-	ASSERT_EQUAL(expected4, check4);
-	ASSERT_EQUAL(expected5, check5);
-	ASSERT_EQUAL(expected6, check6);
+	int expected[] = {1,1,1,1,1,0};
+	for (int i = 0; i < 5; i++){
+		ASSERT_EQUAL(expected[i], check[i]);
+	}
 }
+
 
 CTEST(move_suite, move_queen) // Ход королева
 {
@@ -415,64 +308,44 @@ CTEST(move_suite, move_queen) // Ход королева
 	};
 	
 	//WHEN
-	int coordinates[4];
 
-	//ход вперёд 
-	coordinates[0] = 3;
-	coordinates[1] = 0;     //d1d2
-	coordinates[2] = 3;
-	coordinates[3] = 1;
+	int check[5];
 
-	int check1 = check_move_possible(coordinates, board); 
-	kill(coordinates, board);
+	//ход вперёд
 
-	//по диагонали 
-	coordinates[0] = 3;
-	coordinates[1] = 1;     //d2c3
-	coordinates[2] = 2;
-	coordinates[3] = 2;
+	int move1[] = {3,0,3,1}; //d1d2
 
-	int check2 = check_move_possible(coordinates, board);
-	kill(coordinates, board);
+	check[0] = check_move_possible(move1, board); 
+	kill(move1, board);
+
+	//по диагонали
+
+	int move2[] = {3,1,2,2}; //d2c3
+	check[1] = check_move_possible(move2, board);
+	kill(move2, board);
 
 	//атака вперед
-	coordinates[0] = 2;
-	coordinates[1] = 2;     //c3с4
-	coordinates[2] = 2;
-	coordinates[3] = 3; 
 
-	int check3 = check_move_possible(coordinates, board); 
-	kill(coordinates, board);
+	int move3[] = {2,2,2,3}; //c3c4
+	check[2] = check_move_possible(move3, board); 
+	kill(move3, board);
 
 	//атака влево
-	coordinates[0] = 2;
-	coordinates[1] = 3;     //c4b4
-	coordinates[2] = 1;
-	coordinates[3] = 3; 
 
-	int check4 = check_move_possible(coordinates, board); 
-	kill(coordinates, board);
+	int move4[] = {2,3,1,3}; //c4b4
+	check[3] = check_move_possible(move4, board); 
+	kill(move4, board);
 
 	//проверка на ложный ход
-	coordinates[0] = 1;
-	coordinates[1] = 3;     //b4b1
-	coordinates[2] = 1;
-	coordinates[3] = 0; 
 
-	
-	int check5 = check_move_possible(coordinates, board); 
+	int move5[] = {1,3,1,0}; //b4b1
+
+	check[4] = check_move_possible(move5, board); 
 
 	//THEN
-	const int expected1 = 0;
-	const int expected2 = 0;
-	const int expected3 = 0;
-	const int expected4 = 0;
-	const int expected5 = 1;
 
-	ASSERT_EQUAL(expected1, check1);
-	ASSERT_EQUAL(expected2, check2);
-	ASSERT_EQUAL(expected3, check3);
-	ASSERT_EQUAL(expected4, check4);
-	ASSERT_EQUAL(expected5, check5);
+	int expected[] = {1,1,1,1,0};
+	for (int i = 0; i < 5; i++){
+		ASSERT_EQUAL(expected[i], check[i]);
+	}
 }
-
