@@ -27,3 +27,6 @@ bin:
 	mkdir -p bin
 build:
 	mkdir -p build
+run:
+	./bin/chess
+

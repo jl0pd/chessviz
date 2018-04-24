@@ -12,9 +12,9 @@ int make_move(char board[8][8])
     }
     if (check_move_possible(move, board)){
         kill(move, board);
-       return 1; //done
-   }
-   printf("Move not possible!");
+        return 1; //done
+    }
+    printf("Move not possible\n");
     return 0;
 }
 
