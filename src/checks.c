@@ -4,129 +4,250 @@
 
 int check_pawn(int* move, char board[8][8])
 {
-    int can_back = 0;
-    int possible = 0;
-    if (   check_column(move, can_back, board) 
-        || check_pawn_kill(move, board)){
-        possible = 1;
+    if(board[move[1]][move[0]] == 'p' && (board[move[3]][move[2]] == '.')) {
+        if(((move[0] - move[2]) == 0) && ((move[3] - move[1]) < 0)) {
+            return 0;
         }
-    return possible;
-}
+        if(((move[0] - move[2]) == 0) && ((move[3] - move[1]) > 2)) {
+            return 0;
+        }
+        if(((move[2] - move[0]) != 0) && ((move[3] - move[1]) > 0)) {
+            return 0;
+        }
+    }
 
-int check_pawn_kill(int* move, char board[8][8])
-{
-    int possible = 0;
-    return possible;
+    if(board[move[1]][move[0]] == 'P' && (board[move[3]][move[2]] == '.')) {
+       	if(((move[0] - move[2]) == 0) && ((move[1] - move[3]) < 0)) {
+       		return 0;
+       	}
+       	if(((move[0] - move[2]) == 0) && ((move[1] - move[3]) > 2)) {
+       		return 0;
+       	}
+       	if(((move[2] - move[0]) != 0) && ((move[3] - move[1]) < 0)) {
+        	return 0;
+        }
+    }
+    if (board[move[1]][move[0]] == 'p' 
+    || board[move[1]][move[0]] == 'P') {
+
+    	if((board[move[1]][move[0]] == 'p' 
+            && board[move[3]][move[2]] == 'P')
+        || (board[move[1]][move[0]] == 'P' 
+            && board[move[3]][move[2]] == 'p')) { 
+	   
+	    	if (((move[0] + 1) == move[2]) 
+            && ((move[1] - 1) == move[3]))
+	        	return 1;
+	
+        	if (((move[0] + 1) == move[2]) 
+            && ((move[1] + 1) == move[3]))
+	        	return 1;
+	
+        	if (((move[0] - 1) == move[2]) 
+            && ((move[1] - 1) == move[3]))
+	        	return 1;
+	
+        	if (((move[0] - 1) == move[2]) 
+            && ((move[1] + 1) == move[3]))
+	        	return 1;
+        }
+
+
+        if (board[move[3]][move[2]] == '.') {
+            if (move[1] == 1
+            && move[3] < 4
+            && move[3] > 1
+            && move[0] == move[2]
+            && board[move[1]+1][move[0]] == '.')
+                return 1;
+
+            if (move[1] == 6
+            && move[3] > 3
+            && move[3] < 6
+            && move[0] == move[2]
+            && board[move[1]-1][move[0]] == '.')
+                return 1;
+
+            if (board[move[1]][move[0]] == 'p'
+            && move[1] != 6
+            && move[3] == (move[1] - 1)
+            && move[0] == move[2]) 
+                return 1;
+
+            if (board[move[1]][move[0]] == 'P'
+            && move[1] != 1
+            && move[3] == (move[1] + 1)
+            && move[0] == move[2])
+                return 1;
+        }
+        return 0;
+    }    
+    return 0;
 }
 
 int check_bishop(int* move, char board[8][8])
 {
-    int possible = 0;
-    if (check_diag(move, board)){
-        possible = 1;
-    }
-    return possible;
+    return check_diag(move, board);
 }
 
 int check_rook(int* move, char board[8][8])
 {
-    int possible = 0;
-    int can_back = 1;
-    if (check_row(move, board) || check_column(move, can_back, board)){
-        possible = 1;
-    }
-    return possible;
+    return check_row_and_col(move, board);
 }
 
 int check_queen(int* move, char board[8][8])
 {
-    int possible = 0;
-    int can_back = 1;
-    if (   check_column(move, can_back, board) 
-        || check_diag(move, board) 
-        || check_row(move, board)){
-        possible = 1;
-    }
-    return possible;
+    return check_row_and_col(move, board) 
+        + check_diag(move, board);
 }
 
 int check_knight(int* move, char board[8][8])
 {
-    int possible = 0;
-    // if ((move, board)){
-    //     possible = 1;
-    // }
-    return possible;
+    if(((move[3] == (move[1] + 1)) 
+        || (move[3] == (move[1] - 1)))
+    && (move[2] == (move[0] + 2) 
+    || (move[2] == (move[0] - 2))))
+        return 1;
+    
+    if(((move[3] == (move[1] + 2)) 
+        || (move[3] == (move[1] - 2)))
+    && ((move[2] == (move[0] + 1))
+    || (move[2] == (move[0] - 1))))
+        return 1;
+    
+    return 0;
 }
 
 int check_king(int* move, char board[8][8])
 {
-    int possible = 0;
-    // if ((move, board)){
-    //     possible = 1;
-    // }
-    return possible;
-}
-
-int check_column(int* move, int can_back, char board[8][8])
-{
-    int possible = 0;
-    int i;
-    if (move[0] == move[3]){
-        if (!can_back){
-            if (tolower(board[move[0]][move[1]]) == board[move[0]][move[1]]){ //проверка цвета 1- белый, 0- чёрный
-                for (i = move[1]; i <= move[3]; i++){
-                    
-                }
-            }else{
-                for (i = move[3]; i >= move[1]; i--){
-                    
-                }
-            }
-        }else{
-            for (i = move[1]; i <= move[3]; i++){
-                
-            }
-        }
-    }
-    return possible;
-}
-int check_row(int* move, char board[8][8])
-{
+    if (((move[3] - move[1] == 1) || (move[1] - move[3] == 1))
+    && (move[2] == move[0]))
+        return 1;
+    
+    if ((move[1] == move[3]) && ((move[0] - move[2] == 1)
+    || (move[2] - move[0]) == 1))
+        return 1;
+    
+    if ((move[3] - move[1] == 1) && ((move[2] - move[0] == 1)
+    || (move[0] - move[2] == 1)))
+        return 1;
+    
+    if ((move[1] - move[3] == 1) && ((move[2] - move[0] == 1)
+    || (move[0] - move[2] == 1)))
+        return 1;
+    
     return 0;
 }
+
+int check_row_and_col(int* move, char board[8][8])
+{
+    int i;
+    if(((move[0] - move[2]) != 0) && ((move[1] - move[3]) != 0)) {
+        return 1;
+    }    
+    if (move[0] == move[2] && move[1] < move[3]) { 
+        for (i = move[1] + 1; i < move[3]; i++)
+            if (board[i][move[0]] != '.')
+                return 1;
+        return 0;
+    }
+    if (move[0] == move[2] && move[1] > move[3]) { 
+        for (i = move[3] + 1; i < move[1]; i++)
+            if (board[i][move[0]] != '.')
+                return 1;
+        return 0;
+    }
+    if (move[0] < move[2] && move[1] == move[3]) {
+        for (i = move[0] + 1; i < move[2]; i++)
+            if (board[move[1]][i] != '.')
+                return 1;
+        return 0;
+    }
+    if (move[0] > move[2] && move[1] == move[3]) {
+        for (i = move[2] + 1; i < move[0]; i++)
+            if (board[move[1]][i] != '.')
+                return 1;
+        return 0;
+    }
+    return 0;
+}
+
 int check_diag(int* move, char board[8][8])
 {
+    int i, j;
+    if((move[1] - move[3]) == 0 && (move[0] - move[2]) != 0) {
+        return 0;
+    }
+    if ((move[1] - move[3]) == (move[0] - move[2])) {
+        i = move[1] - 1;
+        j = move[0] - 1;
+        while (i > move[3] && j > move[2]) {
+            if(board[i][j] != '.')
+                return 0;
+            i--;
+            j--;
+        }
+        return 1;
+    }    
+    if ((move[1] - move[3]) == (move[2] - move[0])) {
+        i = move[1] - 1;
+        j = move[0] + 1;
+        while (i > move[3] && j < move[2]) {
+            if(board[i][j] != '.')
+                return 0;
+            i--;
+            j++;
+        }
+        return 1;
+    }
+    if ((move[3] - move[1]) == (move[0] - move[2])) {
+        i = move[1] + 1;
+        j = move[0] - 1;
+        while (i < move[3] && j > move[2]) {
+            if(board[i][j] != '.')
+                return 0;
+            i++;
+            j--;
+        }
+        return 1;
+    }  
+    if ((move[3] - move[1]) == (move[2] - move[0])) {
+        i = move[1] + 1;
+        j = move[0] + 1;
+        while (i < move[3] && j < move[2]) {
+            if(board[i][j] != '.')
+                return 0;
+            i++;
+            j++;
+        }
+        return 1;
+    }  
     return 0;
 }
 
 int check_move_possible(int* move, char board[8][8])
 {
-    int possible = -1;
-    switch(tolower(board[move[0]][move[1]])){
-    /*    
+    switch(tolower(board[move[1]][move[0]])){   
     case 'r':
-        possible = check_rook(move);
+        return check_rook(move, board);
         break;
     case 'n':
-        possible = check_knight(move);
+        return check_knight(move, board);
         break;
     case 'b':
-        possible = check_bishop(move);
+        return check_bishop(move, board);
         break;
     case 'q':
-        possible = check_queen(move);
+        return check_queen(move, board);
         break;
     case 'k':
-        possible = check_king(move);
+        return check_king(move, board);
         break;
     case 'p':
-        possible = check_pawn(move);
+        return check_pawn(move, board);
         break;
-    */
     default:
-        possible = 0;
+        return 0;
         break;
     }
-    return possible;
 }
