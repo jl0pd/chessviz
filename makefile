@@ -1,4 +1,4 @@
-flags = -Wall -Werror -std=c11
+flags = -Wall -Werror -std=c11 -O0 -coverage
 
 all: bin build bin/chess bin/test
 
